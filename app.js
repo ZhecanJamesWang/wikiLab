@@ -25,17 +25,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // CONNECT TO DATABASE =========================================================
-mongoose.connect('mongodb://localhost/todos');
+mongoose.connect('mongodb://localhost/wikiLab');
 
 // ROUTES ======================================================================
 
 // GET requests
-app.get('/api/getTodos', routes.getTodos);
+app.get('/api/getTopicList', routes.getTopicList);
+app.get('/api/getTopic/:topic_url', routes.getTopic);
 
 // POST requests
-app.post('/api/createTodo', routes.createTodo);
-app.post('/api/deleteTodo', routes.deleteTodo);
-app.post('/api/editTodo', routes.editTodo);
+app.post('/api/createTopic', routes.createTopic);
+app.post('/api/deleteTopic', routes.deleteTopic);
+app.post('/api/editTopic', routes.editTopic);
 
 // AngularJS requests
 app.get('*', function (req, res) {
