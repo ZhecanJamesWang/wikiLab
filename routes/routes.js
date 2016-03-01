@@ -27,10 +27,9 @@ var routes = {
       }
       res.status(200).json(topicHeaders);
     });
-  }
-
+  },
   editTopic: function(req, res) {
-    function done(err, topic) {
+    function confirm(err, topic) {
       if (err) {
         return res.send({
           success: false,
@@ -52,7 +51,7 @@ var routes = {
             topic: req.body.topic.trim(),
             url: req.body.topic.trim().replace(/ /g,"_"),
             content: req.body.content
-          }, done);
+          }, confirm);
           break;
         case 1: //Topic exists: edit it!
           var topic = topics[0];
@@ -61,22 +60,28 @@ var routes = {
               topic: req.body.topic.trim(),
               url: req.body.topic.trim().replace(/ /g,"_"),
               content: req.body.content
-            }, done);
+            }, confirm);
           } else {
-            
+            res.status(401).send({
+              success: false,
+              message: 'ERROR: Not your topic'
+            });
           }
-
           break;
         default: //Either the topic exists or it doesn't. Something is broken.
+          res.status(500).send({
+            success: false,
+            message: 'ERROR: Topic stored incorrectly'
+          });
       }
     });
   },
-  deleteTodo: function(req, res) {
-    Todo.findById(req.body.id).remove(function (err) {
+  deleteTopic: function(req, res) {
+    Topic.findOne({url: req.params.url}).remove(function (err) {
       if (err) {
         return res.send({
           success: false,
-          message: 'ERROR: Could not save todo'
+          message: 'ERROR: Could not delete topic'
         });
       }
       return res.send({
