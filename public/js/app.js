@@ -1,4 +1,4 @@
-var app = angular.module('todos', [
+var app = angular.module('wikiLab', [
     'ngRoute'
   ]).config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
@@ -9,7 +9,20 @@ var app = angular.module('todos', [
       .when('/', {
         templateUrl: 'partials/todos.html',
         controller: 'TodoController'
-      })
+      });
+
+      .when('/login', {
+        templateUrl: 'partials/login.html',
+        controller: 'LoginController'
+      });
+
+      .when('/logout', {
+        resolve: {
+          authentication: function(AuthService, $route) {
+            return AuthService.logout();
+          }
+        }
+      });
 
     $locationProvider.html5Mode(true);
 
