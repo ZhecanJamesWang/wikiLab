@@ -34,9 +34,8 @@ app.get('/api/getTopicList', routes.getTopicList);
 app.get('/api/getTopic/:topic_url', routes.getTopic);
 
 // POST requests
-app.post('/api/createTopic', routes.createTopic);
-app.post('/api/deleteTopic', routes.deleteTopic);
-app.post('/api/editTopic', routes.editTopic);
+app.post('/api/deleteTopic/:topic_url', routes.deleteTopic);
+app.post('/api/editTopic/:topic_url', routes.editTopic);
 
 // AngularJS requests
 app.get('*', function (req, res) {

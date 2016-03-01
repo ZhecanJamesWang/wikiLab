@@ -1,71 +1,91 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var Todo = require('../models/todoModel');
+var Topic = require('../models/topicModel');
 
 var routes = {
-  getTodos: function(req, res) {
-    Todo.find(function(err, todos) {
+  getTopic: function(req, res) {
+    Topic.findOne({url: req.params.url},function(err, topic) {
       if (err) {
-        console.log("ERROR: Cannot retrieve todos")
-        res.json([]);
+        console.log("ERROR: Cannot retrieve topic")
+        res.status(404);
       }
-      res.status(200).json(todos);
+      res.status(200).json(topic);
     });
   },
-  createTodo: function(req, res) {
-    var description = req.body.description;
-    var todo = new Todo({
-      description: description
+  getTopicList: function(req, res) {
+    Topic.find(function(err, topics) {
+      if (err) {
+        console.log("ERROR: Cannot retrieve topics")
+        res.status(404);
+      }
+      var topicHeaders = [];
+      for (var i = 0; i < topics.length; i++) {
+        topicHeaders.push({
+          topic: topics[i].topic,
+          url: topics[i].url
+        });
+      }
+      res.status(200).json(topicHeaders);
     });
-    todo.save(function(err) {
+  },
+  editTopic: function(req, res) {
+    function confirm(err, topic) {
       if (err) {
         return res.send({
           success: false,
-          message: 'ERROR: Could not save todo'
+          message: 'ERROR: Could not create topic'
         });
       }
       return res.send({
         success: true,
-        created: todo.created.toString().substring(0,24),
-        completed: todo.completed,
-        description: todo.description,
-        _id: todo._id
+        topic: topic.topic,
+        url: topic.url,
+        content: topic.content
       });
+    }
+    Topic.find({url: req.params.url}, function(err, topics) {
+      switch(topics.length) {
+        case 0: //Topic does not exist; create it!
+          Topic.create({
+            user: req.user._id
+            topic: req.body.topic.trim(),
+            url: req.body.topic.trim().replace(/ /g,"_"),
+            content: req.body.content
+          }, confirm);
+          break;
+        case 1: //Topic exists: edit it!
+          var topic = topics[0];
+          if (topic.user == req.user._id) {
+            topic.save({
+              topic: req.body.topic.trim(),
+              url: req.body.topic.trim().replace(/ /g,"_"),
+              content: req.body.content
+            }, confirm);
+          } else {
+            res.status(401).send({
+              success: false,
+              message: 'ERROR: Not your topic'
+            });
+          }
+          break;
+        default: //Either the topic exists or it doesn't. Something is broken.
+          res.status(500).send({
+            success: false,
+            message: 'ERROR: Topic stored incorrectly'
+          });
+      }
     });
   },
-  deleteTodo: function(req, res) {
-    Todo.findById(req.body.id).remove(function (err) {
+  deleteTopic: function(req, res) {
+    Topic.findOne({url: req.params.url}).remove(function (err) {
       if (err) {
         return res.send({
           success: false,
-          message: 'ERROR: Could not save todo'
+          message: 'ERROR: Could not delete topic'
         });
       }
       return res.send({
         success: true
-      });
-    });
-  },
-  editTodo: function(req, res) {
-    var id = req.body.id;
-    var completed = req.body.completed;
-    var description = req.body.description;
-    Todo.findById(id, function(err, todo) {
-      todo.completed = completed;
-      todo.description = description;
-      todo.save(function(err) {
-        if (err) {
-          return res.send({
-            success: false,
-            message: 'ERROR: Could not save todo'
-          });
-        }
-        return res.send({
-          success: true,
-          created: todo.created.toString().substring(0,24),
-          completed: todo.completed,
-          description: todo.description
-        });
       });
     });
   }
