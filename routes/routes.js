@@ -32,6 +32,7 @@ var routes = {
   },
   editTopic: function(req, res) {
     function confirm(err, topic) {
+      console.log(topic);
       if (err) {
         return res.send({
           success: false,
@@ -64,12 +65,11 @@ var routes = {
             console.log(req.body.topic.trim());
             console.log(req.body.content);
             console.log(req.body.topic.trim().replace(/ /g,"_"));
+            topic.topic = req.body.topic.trim();
+            topic.url = req.body.topic.trim().replace(/ /g,"_");
+            topic.content = req.body.content;
+            topic.save(confirm);
 
-            topic.save({
-              topic: req.body.topic.trim(),
-              url: req.body.topic.trim().replace(/ /g,"_"),
-              content: req.body.content
-            }, confirm);
           // } else {
           //   res.status(401).send({
           //     success: false,
