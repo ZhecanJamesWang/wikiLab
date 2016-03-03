@@ -4,7 +4,7 @@ var Topic = require('../models/topicModel');
 
 var routes = {
   getTopic: function(req, res) {
-    Topic.findOne({url: req.params.url},function(err, topic) {
+    Topic.findOne({url: req.params.topic_url},function(err, topic) {
       if (err) {
         console.log("ERROR: Cannot retrieve topic")
         res.status(404);
@@ -43,11 +43,11 @@ var routes = {
         content: topic.content
       });
     }
-    Topic.find({url: req.params.url}, function(err, topics) {
+    Topic.find({url: req.params.topic_url}, function(err, topics) {
       switch(topics.length) {
         case 0: //Topic does not exist; create it!
           Topic.create({
-            user: req.user._id
+            user: req.user._id,
             topic: req.body.topic.trim(),
             url: req.body.topic.trim().replace(/ /g,"_"),
             content: req.body.content
@@ -77,7 +77,7 @@ var routes = {
     });
   },
   deleteTopic: function(req, res) {
-    Topic.findOne({url: req.params.url}).remove(function (err) {
+    Topic.findOne({url: req.params.topic_url}).remove(function (err) {
       if (err) {
         return res.send({
           success: false,
