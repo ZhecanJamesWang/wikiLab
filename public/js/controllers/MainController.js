@@ -1,7 +1,7 @@
 // public/js/controllers/MainController.js
 // main controller for rendering index.html page
 
-app.controller('MainController', function($scope, $location) {
+app.controller('MainController', function($scope, TopicService) {
   
   $scope.filter = 'all';
   $scope.filterCallbacks = [];
@@ -18,10 +18,9 @@ app.controller('MainController', function($scope, $location) {
     }
   }
 
-// funciton for redirecting url
+// calling TopicService funciton for redirecting url
   $scope.go = function ( path ) {
-    console.log("newTopic");
-    $location.path( path );
+    TopicService.go(path);
   };
 
 });

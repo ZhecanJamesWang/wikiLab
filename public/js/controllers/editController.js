@@ -24,6 +24,13 @@ app.controller('editController', function($scope, TopicService) {
     );
   };
 
+
+// calling TopicService funciton for redirecting url
+  $scope.go = function ( path ) {
+    TopicService.go(path);
+  };
+
+
   $scope.editTopic = function(todo) {
     var confirmationPromise = TodoService.edit({
       _id: todo._id,
@@ -70,6 +77,7 @@ app.controller('editController', function($scope, TopicService) {
       $scope.hiddenTodos = newHiddenTodos;
     }
   };
+
 
   $scope.$parent.registerFilterCallback($scope.filterCallback);
 

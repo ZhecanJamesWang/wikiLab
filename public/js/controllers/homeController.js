@@ -17,7 +17,6 @@ app.controller('homeController', function($scope, $location, TopicService) {
       console.log("homeController getTopic");
       $location.path('/topic_page');
       TopicService.current_topic_url = topic_url
-      console.log("homeController: " + topic_url);
   };
 
 //left codes from the previous app--------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 // public/js/services/TodoService.js
 // The main angular service for sharing functions and variables
 
-app.service('TopicService', function($http, $q) {
+app.service('TopicService', function($http, $q, $location) {
   this.current_topic_url = '';
 
 // fucntion for creating topic
@@ -95,4 +95,10 @@ app.service('TopicService', function($http, $q) {
       });
     return topics;
   };
+  
+// funciton for redirecting url
+  this.go = function ( path ) {
+    $location.path( path );
+  };
+
 });
