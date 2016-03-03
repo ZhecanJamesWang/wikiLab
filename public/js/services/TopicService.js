@@ -3,6 +3,7 @@
 
 app.service('TopicService', function($http, $q, $location) {
   this.current_topic_url = '';
+  this.editing = false;
 
 // fucntion for creating topic
   this.create = function(topicData) {
@@ -22,6 +23,7 @@ app.service('TopicService', function($http, $q, $location) {
             success: response.data.success,
             message: response.data.message
           });
+          console.log("response.data.message");
         }
 
       }, function (error) {
@@ -31,31 +33,31 @@ app.service('TopicService', function($http, $q, $location) {
     return confirmation.promise;
   };
 
-// function for editing existing topics
-  this.edit = function(topicData) {
-    var confirmation = $q.defer();
-    $http.post('/api/editTopic', topicData)
-      .then(function (response) {
-        if (response.data.success) {
-          confirmation.resolve({
-            success: response.data.success,
-            name: response.data.topic_name,
-            description: response.data.topic_description,
-            _id: response.data._id
-          });
-        } else {
-          confirmation.resolve({
-            success: response.data.success,
-            message: response.data.message
-          });
-        }
+// // function for editing existing topics
+//   this.edit = function(topicData) {
+//     var confirmation = $q.defer();
+//     $http.post('/api/editTopic', topicData)
+//       .then(function (response) {
+//         if (response.data.success) {
+//           confirmation.resolve({
+//             success: response.data.success,
+//             name: response.data.topic_name,
+//             description: response.data.topic_description,
+//             _id: response.data._id
+//           });
+//         } else {
+//           confirmation.resolve({
+//             success: response.data.success,
+//             message: response.data.message
+//           });
+//         }
 
-      }, function (error) {
-        console.log('ERROR: Promise error in TodoService', error);
-        confirmation.reject(error);
-      });
-    return confirmation.promise;
-  };
+//       }, function (error) {
+//         console.log('ERROR: Promise error in TodoService', error);
+//         confirmation.reject(error);
+//       });
+//     return confirmation.promise;
+//   };
 
 // function for deleting existing topics
   this.delete = function(todoData) {
@@ -95,7 +97,7 @@ app.service('TopicService', function($http, $q, $location) {
       });
     return topics;
   };
-  
+
 // funciton for redirecting url
   this.go = function ( path ) {
     $location.path( path );

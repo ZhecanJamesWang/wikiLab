@@ -12,6 +12,8 @@
       ng-switch="todo.editing">
 
     <a  ng-click="getTopic(topic.url)">{{topic.topic}} </a>
+    <button class="edit-button" ng-click="editTopic(topic.url)">Edit</button>
+	<button class="delete-button" ng-click="deleteTopic()">Delete</button>
     
   </div>
 

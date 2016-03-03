@@ -56,19 +56,26 @@ var routes = {
           }, confirm);
           break;
         case 1: //Topic exists: edit it!
+        console.log("find the topic on server");
           var topic = topics[0];
-          if (topic.user == req.user._id) {
+          // req.user._id
+          // if (topic.user == ObjectId("507c7f79bcf86cd7994f6c0e")) {
+            // console.log("user match on server");
+            console.log(req.body.topic.trim());
+            console.log(req.body.content);
+            console.log(req.body.topic.trim().replace(/ /g,"_"));
+
             topic.save({
               topic: req.body.topic.trim(),
               url: req.body.topic.trim().replace(/ /g,"_"),
               content: req.body.content
             }, confirm);
-          } else {
-            res.status(401).send({
-              success: false,
-              message: 'ERROR: Not your topic'
-            });
-          }
+          // } else {
+          //   res.status(401).send({
+          //     success: false,
+          //     message: 'ERROR: Not your topic'
+          //   });
+          // }
           break;
         default: //Either the topic exists or it doesn't. Something is broken.
           res.status(500).send({

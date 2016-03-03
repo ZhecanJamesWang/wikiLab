@@ -14,8 +14,12 @@ app.controller('homeController', function($scope, $location, TopicService) {
 
 // get topic url to render topic page with topic controller
   $scope.getTopic = function(topic_url) {
-      console.log("homeController getTopic");
       $location.path('/topic_page');
+      TopicService.current_topic_url = topic_url
+  };
+
+$scope.editTopic = function(topic_url) {
+      $location.path('/edittopic');
       TopicService.current_topic_url = topic_url
   };
 

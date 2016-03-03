@@ -39,7 +39,7 @@ app.post('/api/editTopic/:topic_url', routes.editTopic);
 
 // AngularJS requests
 app.get('*', function (req, res) {
-	console.log("cannot find the routes!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+	console.log("cannot find the routes!!!")
     res.sendFile(__dirname + '/public/index.html');
 });
 

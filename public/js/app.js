@@ -18,6 +18,11 @@ var app = angular.module('wiki', [
         controller: 'editController'
       })
 
+      .when('/edittopic', {
+        templateUrl: 'partials/edittopic.html',
+        controller: 'editController'
+      })
+
       .when('/topic_page', {
         templateUrl: 'partials/topicpage.html',
         controller: 'topicController'
