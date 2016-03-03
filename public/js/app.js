@@ -1,14 +1,26 @@
-var app = angular.module('todos', [
+// <!-- public/js/app.js -->
+// main angular app  module file
+var app = angular.module('wiki', [
     'ngRoute'
   ]).config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
 
-    $routeProvider
 
-      // summary landing page
+// angular routing summary
+    $routeProvider
       .when('/', {
-        templateUrl: 'partials/todos.html',
-        controller: 'TodoController'
+        templateUrl: 'partials/home.html',
+        controller: 'homeController'
+      })
+
+      .when('/newtopic', {
+        templateUrl: 'partials/newtopic.html',
+        controller: 'editController'
+      })
+
+      .when('/topic_page', {
+        templateUrl: 'partials/topicpage.html',
+        controller: 'topicController'
       })
 
     $locationProvider.html5Mode(true);

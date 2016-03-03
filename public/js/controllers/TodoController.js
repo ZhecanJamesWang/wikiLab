@@ -1,36 +1,26 @@
 // public/js/controllers/TodoController.js
-app.controller('TodoController', function($scope, TodoService) {
-
+app.controller('TodoController', function($scope, TopicService) {
+  
   $scope.isEditing = false;
   $scope.hiddenTodos = [];
-  $scope.activeTodoCount = 0;
 
-  TodoService.get().then(function(todos) {
-    var activeTodoCount = 0;
-    angular.forEach(todos, function(todo) {
-      todo.editing = false;
-      todo.strikethrough =
-          todo.completed ? 'strikethrough' :'';
-      if (!todo.completed) { activeTodoCount++ };
-    });
-    $scope.todos = todos;
-    $scope.activeTodoCount = activeTodoCount;
+  TopicService.get().then(function(topics) {
+    $scope.topics = topics;
   });
 
-  $scope.createForm = function() {
-    var confirmationPromise = TodoService.create({
-      description: $scope.createDescription
+  $scope.createTopic = function() {
+    var confirmationPromise = TopicService.create({
+      topic_name: $scope.topic_name,
+      topic_description: $scope.topic_description
     });
+    
     confirmationPromise.then(
       function(confirmation) {
         if (confirmation.success) {
-          confirmation.editing = false;
           $scope.todos.push(confirmation);
-          $scope.createDescription = '';
-          $scope.activeTodoCount++;
-        } else {
-          $scope.createDescription = '';
         }
+        $scope.topic_name = '';
+        $scope.topic_description = '';
       },
       function(error) {
         console.log('ERROR: Promise error in TodoController', error);
@@ -38,7 +28,7 @@ app.controller('TodoController', function($scope, TodoService) {
     );
   };
 
-  $scope.edit = function(todo) {
+  $scope.edit = function(topic) {
     if ($scope.isEditing) {
       for (var i = 0; i < $scope.todos.length; i++) {
         $scope.todos[i].editing = false;
@@ -113,6 +103,7 @@ app.controller('TodoController', function($scope, TodoService) {
       }
     );
   };
+
 
   $scope.filterCallback = function(category) {
     if (category == 'all') {

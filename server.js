@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // CONNECT TO DATABASE =========================================================
-mongoose.connect('mongodb://localhost/wikiLab');
+mongoose.connect('mongodb://localhost/test');
 
 // ROUTES ======================================================================
 
@@ -39,11 +39,12 @@ app.post('/api/editTopic/:topic_url', routes.editTopic);
 
 // AngularJS requests
 app.get('*', function (req, res) {
+	console.log("cannot find the routes!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     res.sendFile(__dirname + '/public/index.html');
 });
 
 // START SERVER ================================================================
 var PORT = process.env.PORT || 3000;
 app.listen(PORT, function() {
-  console.log("Todos running on port:", PORT);
+  console.log("Topics running on port:", PORT);
 });

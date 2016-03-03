@@ -19,6 +19,13 @@ h1 {
 h3 {
   margin: 0;
 }
+
+.topic_name_section{
+  display: flex;
+}
+
+
+
 #section-content {
   flex: 1;
 }
