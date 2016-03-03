@@ -17,6 +17,11 @@ var mongoose       = require('mongoose');
 // route modules
 var routes         = require('./routes/routes');
 
+// authentication modules
+var auth = require('./authentication.js');
+var session        = require('express-session');
+var MongoStore     = require('connect-mongo')(session);
+
 // CONFIGURATION ===============================================================
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -27,15 +32,33 @@ app.use(express.static(path.join(__dirname, 'public')));
 // CONNECT TO DATABASE =========================================================
 mongoose.connect('mongodb://localhost/wikiLab');
 
+// SECURITY CONFIGURATION ======================================================
+var passport = auth.configure();
+app.use(session({
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60
+  }),
+  secret: 'karabraxossecretkey',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 // ROUTES ======================================================================
 
 // GET requests
+app.get('/api/checkAuthentication', auth.sendAuthentication);
 app.get('/api/getTopicList', routes.getTopicList);
 app.get('/api/getTopic/:topic_url', routes.getTopic);
 
 // POST requests
-app.post('/api/deleteTopic/:topic_url', routes.deleteTopic);
-app.post('/api/editTopic/:topic_url', routes.editTopic);
+app.post('/api/deleteTopic/:topic_url', auth.checkAuthentication, routes.deleteTopic);
+app.post('/api/editTopic/:topic_url', auth.checkAuthentication, routes.editTopic);
+app.post('/login', auth.login);
+app.post('/signup', auth.signup);
+app.post('/logout', auth.logout);
 
 // AngularJS requests
 app.get('*', function (req, res) {

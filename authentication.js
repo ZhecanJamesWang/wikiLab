@@ -49,11 +49,13 @@ var authentication = {
         if (err) { return done(err); };
         if (!user) { return done(null, false); }
         validationPromise = user.validPassword(password);
-
         validationPromise.then(function(isValid) {
           console.log(isValid);
           if (isValid) {
-            return done(null, user);
+            req.logIn(user, function(err) {
+              if (err) { return done(null, false); }
+              return done(null, user);
+            });
           } else {
             return done(null, false);
           }
@@ -66,21 +68,31 @@ var authentication = {
     if (req.isAuthenticated()) { return next(); }
     res.status(401).send();
   },
+  sendAuthentication: function(req, res, next) {
+    console.log(req);
+    res.status(200).json({
+      authenticated: req.isAuthenticated()
+    });
+  },
   signup: function(req, res, next) {
-    passport.authenticate('local-signup', {
-      successRedirect : '/',
-      failureRedirect : '/signup'
+    passport.authenticate('local-signup', function(err, user) {
+      res.json({
+        authenticated: req.isAuthenticated()
+      });
     })(req, res, next);
   },
   login: function(req, res, next) {
-    passport.authenticate('local-login', {
-      successRedirect : '/',
-      failureRedirect : '/login'
+    passport.authenticate('local-login', function(err, user) {
+      res.json({
+        authenticated: !!user
+      });
     })(req, res, next);
   },
   logout: function(req, res){
     req.logout();
-    res.redirect('/login');
+    res.json({
+      authenticated: req.isAuthenticated()
+    });
   }
 };
 
