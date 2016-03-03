@@ -50,7 +50,6 @@ var authentication = {
         if (!user) { return done(null, false); }
         validationPromise = user.validPassword(password);
         validationPromise.then(function(isValid) {
-          console.log(isValid);
           if (isValid) {
             req.logIn(user, function(err) {
               if (err) { return done(null, false); }
