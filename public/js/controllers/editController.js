@@ -71,6 +71,8 @@ app.controller('editController', function($scope, TopicService) {
 
     confirmationPromise.then(
       function(confirmation) {
+        console.log("confirmationPromise.then");
+        console.log(confirmation)
         $scope.topic_name = '';
         $scope.topic_description = '';
       },

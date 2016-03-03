@@ -5,7 +5,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 var Topic = mongoose.Schema({
   user:{
     type: ObjectId,
-    // required: true
+    required: true
   },
   topic: {
     type: String,
