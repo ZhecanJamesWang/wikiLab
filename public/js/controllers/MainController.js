@@ -1,7 +1,11 @@
-app.controller('MainController', function($scope, $location) {
+// public/js/controllers/MainController.js
+// main controller for rendering index.html page
+
+app.controller('MainController', function($scope, TopicService) {
   
   $scope.filter = 'all';
   $scope.filterCallbacks = [];
+
 
   $scope.registerFilterCallback = function(callback){
     $scope.filterCallbacks.push(callback);
@@ -13,5 +17,10 @@ app.controller('MainController', function($scope, $location) {
       $scope.filterCallbacks[i]($scope.filter);
     }
   }
+
+// calling TopicService funciton for redirecting url
+  $scope.go = function ( path ) {
+    TopicService.go(path);
+  };
 
 });
