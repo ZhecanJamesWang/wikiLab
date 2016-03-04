@@ -32,12 +32,10 @@ app.service('TopicService', function($http, $q, $location) {
     return confirmation.promise;
   };
 
-
-
 // function for deleting existing topics
-  this.delete = function(todoData) {
+  this.delete = function(topicData) {
     var confirmation = $q.defer();
-    $http.post('/api/deleteTodo', todoData)
+    $http.post('/api/deleteTopic/' + topicData.url, topicData)
       .then(function (response) {
         if (response.data.success) {
           confirmation.resolve({

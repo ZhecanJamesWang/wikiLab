@@ -68,7 +68,6 @@ var routes = {
             topic.url = req.body.title.trim().replace(/ /g,"_");
             topic.content = req.body.content;
             topic.save(confirm);
-
           } else {
             res.status(401).send({
               success: false,
