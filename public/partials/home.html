@@ -1,0 +1,20 @@
+<!-- public/partials/home.html -->
+<!-- home page for the app, listing all the stored topics -->
+<div class="container-card">
+  <div>
+    <label>Number of wikis: {{TopicsCount}}</label>
+  </div>
+
+  <div
+      class="todo"
+      ng-repeat="topic in topics"
+
+      ng-switch="todo.editing">
+
+    <a  ng-click="getTopic(topic.url)">{{topic.topic}} </a>
+    <button class="edit-button" ng-click="editTopic(topic.url)">Edit</button>
+    <button class="delete-button" ng-click="deleteTopic()">Delete</button>
+    
+  </div>
+
+</div>
