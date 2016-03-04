@@ -3,7 +3,7 @@
 
 app.controller('homeController', function($scope, $location, TopicService) {
   
-
+  $scope.topicSearch = "";
 
 //calling service get function to get all the topics
   TopicService.get().then(function(topics) {

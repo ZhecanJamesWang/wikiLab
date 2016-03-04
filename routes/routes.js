@@ -32,7 +32,6 @@ var routes = {
   },
   editTopic: function(req, res) {
     function confirm(err, topic) {
-      console.log(topic);
       if (err) {
         return res.send({
           success: false,
@@ -57,7 +56,6 @@ var routes = {
           }, confirm);
           break;
         case 1: //Topic exists: edit it!
-        console.log("find the topic on server");
           var topic = topics[0];
           // req.user._id
           // if (topic.user == ObjectId("507c7f79bcf86cd7994f6c0e")) {

@@ -23,8 +23,6 @@ app.service('TopicService', function($http, $q, $location) {
             success: response.data.success,
             message: response.data.message
           });
-          console.log("response.data.message");
-          console.log(response.data.topic);
         }
 
       }, function (error) {
