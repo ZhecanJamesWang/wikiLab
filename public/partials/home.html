@@ -1,19 +1,20 @@
 <!-- public/partials/home.html -->
 <!-- home page for the app, listing all the stored topics -->
 <div class="container-card">
+   <input type="search" class="form-control" placeholder="Search" ng-model="topicSearch">
+
   <div>
     <label>Number of wikis: {{TopicsCount}}</label>
   </div>
 
   <div
-      class="todo"
-      ng-repeat="topic in topics"
-
-      ng-switch="todo.editing">
+      class="topics"
+      ng-repeat="topic in topics| filter :topicSearch "
+    >
 
     <a  ng-click="getTopic(topic.url)">{{topic.topic}} </a>
     <button class="edit-button" ng-click="editTopic(topic.url)">Edit</button>
-	<button class="delete-button" ng-click="deleteTopic()">Delete</button>
+	<button class="delete-button" ng-click="deleteTopic(topic.url)">Delete</button>
     
   </div>
 
