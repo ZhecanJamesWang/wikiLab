@@ -56,8 +56,9 @@ app.service('TopicService', function($http, $q, $location) {
   };
 
 // function for getting a list of stored topics
-  this.get = function() {
+  this.getTopicList = function() {
     var topics = $http.get('/api/getTopicList').then(function (response) {
+        console.log(response);
         return response.data;
       });
     return topics;

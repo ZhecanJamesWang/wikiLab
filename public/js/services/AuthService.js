@@ -11,7 +11,6 @@ app.service('AuthService', function($http, $q, $rootScope, $location) {
     $http.post('/login', credentials).then(function success(response) {
       
       service.authenticated = response.data.authenticated;
-      console.log(service.authenticated);
       if (service.authenticated) {
         $location.path('/');
       } else {
@@ -42,7 +41,6 @@ app.service('AuthService', function($http, $q, $rootScope, $location) {
     var deferred = $q.defer();
     $http.get('/api/checkAuthentication').then(function success(response) {
       service.authenticated = response.data.authenticated;
-      console.log(response);
       if (!service.authenticated) {
         $location.path(routeForUnauthorizedAccess);
       }

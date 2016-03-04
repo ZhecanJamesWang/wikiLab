@@ -12,7 +12,7 @@
       ng-repeat="topic in topics| filter :topicSearch "
     >
 
-    <a  ng-click="getTopic(topic.url)">{{topic.topic}} </a>
+    <a  ng-click="getTopic(topic.url)">{{topic.title}} </a>
     <button class="edit-button" ng-click="editTopic(topic.url)">Edit</button>
 	<button class="delete-button" ng-click="deleteTopic(topic.url)">Delete</button>
     
