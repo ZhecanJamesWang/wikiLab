@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // CONNECT TO DATABASE =========================================================
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/wikiLab');
 
 // SECURITY CONFIGURATION ======================================================
 var passport = auth.configure();
@@ -55,15 +55,14 @@ app.get('/api/getTopic/:topic_url', routes.getTopic);
 
 // POST requests
 app.post('/api/deleteTopic/:topic_url', auth.checkAuthentication, routes.deleteTopic);
-app.post('/api/editTopic/:topic_url', auth.checkAuthentication, routes.editTopic);
+app.post('/api/editTopic/:topic_url?', auth.checkAuthentication, routes.editTopic);
 app.post('/login', auth.login);
 app.post('/signup', auth.signup);
 app.post('/logout', auth.logout);
 
 // AngularJS requests
 app.get('*', function (req, res) {
-	console.log("cannot find the routes!!!")
-    res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 // START SERVER ================================================================
