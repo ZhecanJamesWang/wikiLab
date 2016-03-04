@@ -23,6 +23,26 @@ $scope.editTopic = function(topic_url) {
       TopicService.current_topic_url = topic_url
   };
 
+$scope.deleteTopic = function(topic_url) {
+    var confirmationPromise = TopicService.delete({
+      url: topic_url
+    });
+    
+    confirmationPromise.then(
+      function(confirmation) {
+        var chosenTopic = $scope.topics.find(function (topic) { 
+          return topic.url === topic_url;
+          });
+        var index = $scope.topics.indexOf(chosenTopic);
+        $scope.topics.splice(index, 1);
+        $scope.TopicsCount = $scope.topics.length;
+      },
+      function(error) {
+        console.log('ERROR: Promise error in TodoController', error);
+      }
+    );
+  };
+
 //left codes from the previous app--------------------------------------------------------------------------------------------------
 
   $scope.filterCallback = function(category) {

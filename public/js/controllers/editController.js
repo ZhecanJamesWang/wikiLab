@@ -18,6 +18,7 @@ app.controller('editController', function($scope, TopicService) {
       function(confirmation) {
         $scope.topic_name = '';
         $scope.topic_description = '';
+        TopicService.go('/');  
       },
       function(error) {
         console.log('ERROR: Promise error in TodoController', error);
@@ -55,26 +56,17 @@ app.controller('editController', function($scope, TopicService) {
 
 
   $scope.editTopic = function() {
-    console.log("editTopic");
-    console.log($scope.topic_name);
-    console.log($scope.topic_description);
-    console.log(TopicService.current_topic_url);
-
-
     var confirmationPromise = TopicService.create({
       topic: $scope.topic_name,
       content: $scope.topic_description,
       url: TopicService.current_topic_url
     });
     
-    TopicService.go('/');
-
     confirmationPromise.then(
       function(confirmation) {
-        console.log("confirmationPromise.then");
-        console.log(confirmation)
         $scope.topic_name = '';
         $scope.topic_description = '';
+        TopicService.go('/');
       },
       function(error) {
         console.log('ERROR: Promise error in TodoController', error);
@@ -82,24 +74,6 @@ app.controller('editController', function($scope, TopicService) {
     );
   };
 
-  // $scope.editTopic = function(todo) {
-  //   var confirmationPromise = TodoService.edit({
-  //     _id: todo._id,
-  //     name: topic.topic_name,
-  //     description: topic.topic_description,
-  //   });
-  //   confirmationPromise.then(
-  //     function(confirmation) {
-  //       if (confirmation.success) {
-  //       $scope.topic_name = '';
-  //       $scope.topic_description = '';
-  //       }
-  //     },
-  //     function(error) {
-  //       console.log('ERROR: Promise error in TodoController', error);
-  //     }
-  //   );
-  // };
 
 //left codes from the previous app--------------------------------------------------------------------------------------------------
   $scope.filterCallback = function(category) {
