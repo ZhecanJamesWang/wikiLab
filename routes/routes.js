@@ -5,12 +5,19 @@ var ObjectId = mongoose.Types.ObjectId;
 
 var routes = {
   getTopic: function(req, res) {
-    Topic.findOne({url: req.params.topic_url},function(err, topic) {
+    Topic.findOne({url: req.params.topic_url}, function (err, topic) {
       if (err) {
-        console.log("ERROR: Cannot retrieve topic")
-        res.status(404);
+        return res.send({
+          success: false,
+          message: 'ERROR: Could not create topic'
+        });
       }
-      res.status(200).json(topic);
+      return res.send({
+        success: true,
+        title: topic.title,
+        url: topic.url,
+        content: topic.content
+      });
     });
   },
   getTopicList: function(req, res) {
@@ -22,7 +29,7 @@ var routes = {
       var topicHeaders = [];
       for (var i = 0; i < topics.length; i++) {
         topicHeaders.push({
-          topic: topics[i].topic,
+          title: topics[i].title,
           url: topics[i].url
         });
       }
@@ -39,7 +46,7 @@ var routes = {
       }
       return res.send({
         success: true,
-        topic: topic.topic,
+        title: topic.title,
         url: topic.url,
         content: topic.content
       });
@@ -49,16 +56,16 @@ var routes = {
         case 0: //Topic does not exist; create it!
           Topic.create({
             user: req.user._id,
-            topic: req.body.topic.trim(),
-            url: req.body.topic.trim().replace(/ /g,"_"),
+            title: req.body.title.trim(),
+            url: req.body.title.trim().replace(/ /g,"_"),
             content: req.body.content
           }, confirm);
           break;
         case 1: //Topic exists: edit it!
           var topic = topics[0];
           if (topic.user.toString() == req.user._id.toString()) {
-            topic.topic = req.body.topic.trim();
-            topic.url = req.body.topic.trim().replace(/ /g,"_");
+            topic.title = req.body.title.trim();
+            topic.url = req.body.title.trim().replace(/ /g,"_");
             topic.content = req.body.content;
             topic.save(confirm);
           } else {

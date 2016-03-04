@@ -5,7 +5,6 @@ var User          = require('./models/userModel.js');
 var authentication = {
   configure: function() {
     passport.serializeUser(function(user, done) {
-      console.log(user.id);
       done(null, user.id);
     });
     passport.deserializeUser(function(id, done) {
@@ -68,7 +67,6 @@ var authentication = {
     res.status(401).send();
   },
   sendAuthentication: function(req, res, next) {
-    console.log(req);
     res.status(200).json({
       authenticated: req.isAuthenticated()
     });
