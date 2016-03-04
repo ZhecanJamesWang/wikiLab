@@ -11,7 +11,7 @@ app.controller('TopicController',
         $scope.content = topic.content;
       },
       function(error) {
-        console.log('ERROR: Promise error in EditController', error);
+        console.log('ERROR: Promise error in TopicController', error);
       }
     );
   };
@@ -46,7 +46,7 @@ app.controller('TopicController',
         $location.path('/' + confirmation.url, false);
       },
       function(error) {
-        console.log('ERROR: Promise error in TodoController', error);
+        console.log('ERROR: Promise error in TopicController', error);
       }
     );
   };
