@@ -43,7 +43,22 @@ app.controller('TopicController',
         $scope.content = confirmation.content;
         $scope.state = 'reading';
         $scope.url = confirmation.url;
-        $location.path('/' + confirmation.url, false);
+        $location.path('/wiki/' + confirmation.url, false);
+      },
+      function(error) {
+        console.log('ERROR: Promise error in TopicController', error);
+      }
+    );
+  };
+
+  $scope.delete = function() {
+    var confirmationPromise = TopicService.delete({
+      url: $scope.url
+    });
+    
+    confirmationPromise.then(
+      function(confirmation) {
+        $location.path('/', true);
       },
       function(error) {
         console.log('ERROR: Promise error in TopicController', error);
@@ -53,7 +68,7 @@ app.controller('TopicController',
 
   $scope.editMode = function() {
     $scope.state = 'editing';
-    $location.path('/' + $scope.url + '/edit', false);
+    $location.path('/wiki/' + $scope.url + '/edit', false);
   };
 
 });

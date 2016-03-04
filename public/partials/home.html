@@ -1,21 +1,28 @@
 <!-- public/partials/home.html -->
 <!-- home page for the app, listing all the stored topics -->
 <div class="container-card">
-   <input type="search" class="form-control" placeholder="Search" ng-model="topicSearch">
-
-  <div>
-    <label>Number of wikis: {{TopicsCount}}</label>
+  <div class="container-search">
+    <input type="search" placeholder="Search" ng-model="topicSearch">
   </div>
 
-  <div
-      class="topics"
-      ng-repeat="topic in topics| filter :topicSearch "
-    >
+  <div class="container-count">
+    <label>Number of wikis: {{TopicsCount}}</label>
+  </div>
+  <div class="topic-list">
+    <div
+        class="topic-tile"
+        ng-repeat="topic in topics| filter :topicSearch"
+        ng-click="readTopic(topic.url)">
+    <span>{{topic.title}}</span>
+    </div>
 
-    <a  ng-click="getTopic(topic.url)">{{topic.title}} </a>
-    <button class="edit-button" ng-click="editTopic(topic.url)">Edit</button>
-	<button class="delete-button" ng-click="deleteTopic(topic.url)">Delete</button>
-    
+    <div
+        class="topic-tile topic-tile-new"
+        ng-click="createTopic()">
+    <span>+</span>
+    </div>
+
+
   </div>
 
 </div>

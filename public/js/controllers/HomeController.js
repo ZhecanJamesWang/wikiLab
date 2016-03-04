@@ -7,7 +7,6 @@ app.controller('HomeController', function($scope, $location, TopicService) {
 
 //calling service get function to get all the topics
   TopicService.getTopicList().then(function(topics) {
-    console.log(topics);
     $scope.topics = topics;
     $scope.TopicsCount = topics.length;
   });
@@ -19,29 +18,12 @@ app.controller('HomeController', function($scope, $location, TopicService) {
       TopicService.current_topic_url = topic_url
   };
 
-$scope.editTopic = function(topic_url) {
-      $location.path('/edittopic');
-      TopicService.current_topic_url = topic_url
+  $scope.readTopic = function(url) {
+    $location.path('/wiki/' + url);
   };
 
-$scope.deleteTopic = function(topic_url) {
-    var confirmationPromise = TopicService.delete({
-      url: topic_url
-    });
-    
-    confirmationPromise.then(
-      function(confirmation) {
-        var chosenTopic = $scope.topics.find(function (topic) { 
-          return topic.url === topic_url;
-          });
-        var index = $scope.topics.indexOf(chosenTopic);
-        $scope.topics.splice(index, 1);
-        $scope.TopicsCount = $scope.topics.length;
-      },
-      function(error) {
-        console.log('ERROR: Promise error in TodoController', error);
-      }
-    );
+  $scope.createTopic = function() {
+    $location.path('/new');
   };
 
 //left codes from the previous app--------------------------------------------------------------------------------------------------

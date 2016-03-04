@@ -9,7 +9,7 @@ body {
   flex-direction: column;
 }
 header {
-  background-color: #006600;
+  background-color: #333333;
   color: white;
   display: flex;
 }
@@ -71,16 +71,16 @@ button {
   font-weight: 400;
   color: #ffffff;
   border: none;
-  background-color: #006600;
+  background-color: #333333;
   border-radius: 3px;
 }
 button:hover {
   color: #ffffff;
   border: none;
-  background-color: #004d00;
+  background-color: #222222;
 }
 button:active {
-  background-color: #003300;
+  background-color: #222222;
 }
 .form-control {
   padding: 6px;
@@ -91,7 +91,7 @@ button:active {
 }
 .container-limiting {
   width: 90%;
-  max-width: 600px;
+  max-width: 800px;
   margin: auto;
 }
 .container-content {
@@ -102,7 +102,12 @@ button:active {
   align-items: center;
   padding: 12px 12px;
 }
-
+.container-search {
+  margin-top: 20px;
+}
+.container-count {
+  margin-top: 20px;
+}
 /* NAVIGATION =============================================================== */
 .logo {
   flex: 1;
@@ -152,8 +157,35 @@ button:active {
   font-weight: 400;
   padding: 10px;
 }
-.mode-button {
+.container-mode-button {
+  display: flex;
+  justify-content: flex-end;
   position: fixed;
   bottom: 20px;
   right: 20px;
+}
+.mode-button {
+  margin-left: 20px
+}
+.topic-tile {
+  position: relative;
+  height: 100px;
+  width: 100px;
+  background-color: #eeeeee;
+  border-radius: 3px;
+  margin: 0px 20px 20px 0px;
+  padding: 10px;
+  cursor: pointer;
+}
+.topic-tile:hover {
+  background-color: #f3f3f3;
+}
+.topic-tile-new {
+  background-color: #dddddd;
+}
+.topic-list {
+  margin-top: 20px;
+  display: flex;
+  -webkit-flex-wrap: wrap; /* Safari */
+  flex-wrap: wrap;
 }
