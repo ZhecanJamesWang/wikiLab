@@ -18,9 +18,4 @@ app.controller('MainController', function($scope, TopicService) {
     }
   }
 
-// calling TopicService funciton for redirecting url
-  $scope.go = function ( path ) {
-    TopicService.go(path);
-  };
-
 });
