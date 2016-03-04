@@ -27,12 +27,12 @@ var app = angular.module('wikiLab', [
       controller: 'TopicController'
     })
 
-    .when('/:topic_url/:cmd', {
+    .when('/wiki/:topic_url/:cmd', {
       templateUrl: 'partials/topic.html',
       controller: 'TopicController'
     })
 
-    .when('/:topic_url', {
+    .when('/wiki/:topic_url', {
       templateUrl: 'partials/topic.html',
       controller: 'TopicController'
     })

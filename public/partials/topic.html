@@ -13,11 +13,18 @@
       <p>{{content}}</p>
     </div>
 
-    <button
-        class="mode-button"
-        ng-click="editMode()">
-      Edit
-    </button>
+    <div class="container-mode-button">
+      <button
+          class="mode-button"
+          ng-click="delete()">
+        Delete
+      </button>
+      <button
+          class="mode-button"
+          ng-click="editMode()">
+        Edit
+      </button>
+    </div>
   </div>
 
   <form
@@ -34,10 +41,12 @@
       <textarea type="text" ng-model="content"></textarea>
     </div>
 
-    <button
-        class="mode-button">
-      Save
-    </button>
+    <div class="container-mode-button">
+      <button
+          class="mode-button">
+        Save
+      </button>
+    </div>
   </form>
 
 </div>
