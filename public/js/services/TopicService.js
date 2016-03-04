@@ -6,7 +6,7 @@ app.service('TopicService', function($http, $q, $location) {
   this.editing = false;
 
 // fucntion for creating topic
-  this.create = function(topicData) {
+  this.edit = function(topicData) {
     var confirmation = $q.defer();
 
     $http.post('/api/editTopic/' + topicData.url, topicData)
@@ -14,7 +14,7 @@ app.service('TopicService', function($http, $q, $location) {
         if (response.data.success) {
           confirmation.resolve({
             success: response.data.success,
-            topic: response.data.topic,
+            title: response.data.title,
             url: response.data.url,
             content: response.data.content,
           });
@@ -23,7 +23,6 @@ app.service('TopicService', function($http, $q, $location) {
             success: response.data.success,
             message: response.data.message
           });
-          console.log("response.data.message");
         }
 
       }, function (error) {
@@ -67,11 +66,20 @@ app.service('TopicService', function($http, $q, $location) {
   };
 
 // function for getting a specific topic info
-  this.getTopic = function(topicData) {
-    var topics = $http.get('/api/getTopic/'+topicData.url).then(function (response) {
+  this.getTopic = function(url) {
+    var topic = $http.get('/api/getTopic/' + url).then(function (response) {
+        if (response.data.success) {
+          return response.data;
+        } else {
+          return {
+            title: '',
+            content: ''
+          };
+        }
+
         return response.data;
       });
-    return topics;
+    return topic;
   };
 
 // funciton for redirecting url

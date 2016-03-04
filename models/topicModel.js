@@ -7,7 +7,7 @@ var Topic = mongoose.Schema({
     type: ObjectId,
     required: true
   },
-  topic: {
+  title: {
     type: String,
     required: true,
   },
