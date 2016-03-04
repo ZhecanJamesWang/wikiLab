@@ -1,4 +1,5 @@
-
+//server.js
+//main file for app server hosting
 // MODULE IMPORTS ==============================================================
 
 // utility modules

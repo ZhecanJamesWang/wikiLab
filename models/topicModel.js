@@ -1,4 +1,6 @@
-// models/todoModel.js
+// models/topicModel.js
+//storage collection model file for specifying topic stored data structure
+
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 

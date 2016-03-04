@@ -1,5 +1,7 @@
 // public/js/controllers/TopicController.js
-// edit controller for rendering newtopic and edittopic page
+// main topic controller for rendering  topic.html
+// for creating new topic 
+// viewing and editing existing topics
 
 app.controller('TopicController',
     function($scope, $routeParams, $location, TopicService) {

@@ -1,3 +1,6 @@
+//routes/routes.js
+
+//main routing summary of app server side handling
 var express = require('express');
 var mongoose = require('mongoose');
 var Topic = require('../models/topicModel');

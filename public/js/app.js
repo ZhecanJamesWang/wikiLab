@@ -1,5 +1,7 @@
 // <!-- public/js/app.js -->
 // main angular app  module file
+// angular routing summary for client side routing
+
 var app = angular.module('wikiLab', [
     'ngRoute'
   ]).config([

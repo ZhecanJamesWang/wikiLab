@@ -1,3 +1,6 @@
+// models/userModel.js
+//storage collection model file for specifying user stored data structure
+
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt');
 

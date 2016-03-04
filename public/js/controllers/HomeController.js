@@ -1,5 +1,6 @@
-// public/js/controllers/homeController.js
+// public/js/controllers/HomeController.js
 // home controller for rendering home.html page
+// including functions for deleting topics and triggering editing functionality in client side
 
 app.controller('HomeController', function($scope, $location, TopicService) {
   
