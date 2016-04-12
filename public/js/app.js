@@ -2,6 +2,7 @@
 // main angular app  module file
 // angular routing summary for client side routing
 
+// nice, concise app.js file -- I like that you've modularized your controllers and services
 var app = angular.module('wikiLab', [
     'ngRoute'
   ]).config([
@@ -57,7 +58,7 @@ var app = angular.module('wikiLab', [
 
   $locationProvider.html5Mode(true);
 
-}])
+}]);
 
 
 app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {

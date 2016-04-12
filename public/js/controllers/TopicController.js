@@ -1,6 +1,6 @@
 // public/js/controllers/TopicController.js
 // main topic controller for rendering  topic.html
-// for creating new topic 
+// for creating new topic
 // viewing and editing existing topics
 
 app.controller('TopicController',
@@ -24,7 +24,7 @@ app.controller('TopicController',
       $scope.state = 'editing';
     } else {
       $scope.state = 'reading';
-    }    
+    }
   } else {
     $scope.url = '';
     $scope.title = '';
@@ -33,13 +33,12 @@ app.controller('TopicController',
   }
 
   $scope.edit = function(title, content) {
-    var confirmationPromise = TopicService.edit({
+    // You don't need to name the promise -- can just chain like this
+    TopicService.edit({
       title: title,
       content: content,
       url: $scope.url
-    });
-    
-    confirmationPromise.then(
+    }).then(
       function(confirmation) {
         $scope.title = confirmation.title;
         $scope.content = confirmation.content;
@@ -54,11 +53,9 @@ app.controller('TopicController',
   };
 
   $scope.delete = function() {
-    var confirmationPromise = TopicService.delete({
+    TopicService.delete({
       url: $scope.url
-    });
-    
-    confirmationPromise.then(
+    }).then(
       function(confirmation) {
         $location.path('/', true);
       },

@@ -3,7 +3,7 @@
 // including functions for users to log in for later visiting
 
 app.controller('LoginController', function($scope, AuthService) {
-  
+
   $scope.loginForm = function() {
     AuthService.login({
       username: $scope.username,
@@ -11,6 +11,6 @@ app.controller('LoginController', function($scope, AuthService) {
     });
     $scope.username = '';
     $scope.password = '';
-  }
+  };
 
 });

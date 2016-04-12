@@ -12,7 +12,7 @@
     <div
         class="topic-tile"
         ng-repeat="topic in topics| filter :topicSearch"
-        ng-click="readTopic(topic.url)">
+        ng-click="readTopic(topic.url)"> <!-- elegant use of filter for search! -->
     <span>{{topic.title}}</span>
     </div>
     <div

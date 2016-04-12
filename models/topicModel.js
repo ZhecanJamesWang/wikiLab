@@ -16,7 +16,7 @@ var Topic = mongoose.Schema({
   url: {
     type: String,
     required: true,
-  },  
+  },
   content: {
     type: String,
     required: true
@@ -24,7 +24,7 @@ var Topic = mongoose.Schema({
   created: {
     type: Date,
     required: true,
-    default: new Date()
+    default: new Date() // nice!
   }
 });
 
